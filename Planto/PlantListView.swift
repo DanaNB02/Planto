@@ -3,24 +3,30 @@ import SwiftUI
 struct PlantListView: View {
 
     @StateObject private var viewModel = PlantViewModel()
+    
     @State private var isShowingAddPlantView = false
-
+    
+    @State private var selectedPlant: Plant?
+    
     var body: some View {
         NavigationView {
-            
             ZStack(alignment: .bottomTrailing) {
-                
                 List {
                     ForEach(viewModel.plants) { plant in
-                        VStack(alignment: .leading) {
-                            Text(plant.name)
-                                .fontWeight(.bold)
-                            Text("Room: \(plant.room)")
-                            Text("Light: \(plant.light)")
-                            Text("Water: \(plant.water_amount) every \(plant.watering_days)")
+                        Button(action: {
+                            // When tapped, store the selected plant and show the sheet.
+                            selectedPlant = plant
+                        }) {
+                            VStack(alignment: .leading) {
+                                Text(plant.name)
+                                    .fontWeight(.bold)
+                                Text("Room: \(plant.room)")
+                                Text("Light: \(plant.light)")
+                                Text("Water: \(plant.water_amount) every \(plant.watering_days)")
+                            }
+                            .foregroundColor(.primary)
                         }
                     }
-                    // when a user swipes to delete a row.
                     .onDelete(perform: viewModel.deletePlant)
                 }
                 .navigationTitle("My Plants")
@@ -35,16 +41,14 @@ struct PlantListView: View {
                         .padding()
                 }
             }
-            // this is inside the NavigationView scope
+            // sheet for adding a new plant.
             .sheet(isPresented: $isShowingAddPlantView) {
-                AddPlantView(viewModel: viewModel)
+                PlantEditorView(viewModel: viewModel)
+            }
+            // sheet for editing an existing plant.
+            .sheet(item: $selectedPlant) { plant in
+                PlantEditorView(viewModel: viewModel, plantToUpdate: plant)
             }
         }
-    }
-}
-
-struct PlantListView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlantListView()
     }
 }
