@@ -4,10 +4,31 @@ import SwiftUI
 
 class PlantViewModel: ObservableObject {
     @Published var plants: [Plant] = []
+    
+    
+    // --- COMPUTED VALUES ---
+    
+    // sort the array so all completed are at the bottom of the list.
+    var sortedPlants: [Plant] {
+        plants.sorted { !$0.isCompleted && $1.isCompleted }
+    }
+    
+    var completedPlantCount: Int {
+        plants.filter({$0.isCompleted}).count
+    }
+    
+    // compute the progress value for the progress bar
+    var progressValue: Double {
+        if(plants.isEmpty){
+            return 0.0
+        }
+        
+        return Double(completedPlantCount)/Double(plants.count)
+    }
+    
     init() {
         // can delete later
         fetchPlants()
-        
     }
     
     // sample data
@@ -37,10 +58,20 @@ class PlantViewModel: ObservableObject {
         plants.removeAll { $0.id == id }
     }
     
-    
     func updatePlant(_ plant: Plant) {
         if let index = plants.firstIndex(where: { $0.id == plant.id }) {
             plants[index] = plant
         }
     }
+    
+    func toggleCompletion(_ plant: Plant) {
+        if let index = plants.firstIndex(where : { $0.id == plant.id }) {
+            plants[index].isCompleted.toggle()
+        }
+    }
+    // once all the reminders are completed and the user move to the all done view, clear the list.
+    func clearPlants(){
+        plants.removeAll()
+    }
+    
 }

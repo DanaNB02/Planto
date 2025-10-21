@@ -45,7 +45,7 @@ struct PlantEditorView: View {
                     .padding()
                 }
             }
-            .navigationTitle(plantToUpdate == nil ? "Add Reminder" : "Edit Reminder")
+            .navigationTitle("Set Reminder")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
