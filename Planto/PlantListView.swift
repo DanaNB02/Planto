@@ -9,6 +9,11 @@ struct PlantListView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
+
+                if viewModel.plants.isEmpty {
+                    EmptyStateView(isShowingAddPlantView: $isShowingAddPlantView)
+                               
+                } else {
                 
                 // if progress is 1.0 (100%)
                 if viewModel.progressValue == 1.0 {
@@ -81,6 +86,7 @@ struct PlantListView: View {
                 Button(action: {
                     isShowingAddPlantView = true
                 }) {
+                    
                     Image(systemName: "plus.circle.fill")
                         .resizable()
                         .frame(width: 56, height: 56)
@@ -88,7 +94,9 @@ struct PlantListView: View {
                         .padding()
                 }
             }
-            .navigationTitle("My Plants")
+            
+        }
+            .navigationTitle("My Plants 🌱")
             // add reminder sheet
             .sheet(isPresented: $isShowingAddPlantView) {
                 PlantEditorView(viewModel: viewModel)

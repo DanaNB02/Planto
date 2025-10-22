@@ -28,7 +28,7 @@ class PlantViewModel: ObservableObject {
     
     init() {
         // can delete later
-        fetchPlants()
+//        fetchPlants()
     }
     
     // sample data

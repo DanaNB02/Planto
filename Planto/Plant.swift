@@ -1,6 +1,6 @@
 import Foundation
 
-struct Plant: Identifiable {
+struct Plant: Identifiable, Codable {
     let id: UUID
     var name: String
     var room: String
