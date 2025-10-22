@@ -28,37 +28,51 @@ struct PlantEditorView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                PlantFormView(
-                    name: $name,
-                    selectedRoom: $selectedRoom,
-                    selectedLight: $selectedLight,
-                    selectedWatering: $selectedWatering,
-                    selectedAmount: $selectedAmount
-                )
+                    VStack(spacing: 0) {
+                        PlantFormView(
+                            name: $name,
+                            selectedRoom: $selectedRoom,
+                            selectedLight: $selectedLight,
+                            selectedWatering: $selectedWatering,
+                            selectedAmount: $selectedAmount
+                        )
 
-                if plantToUpdate != nil {
-                    Button("Delete Plant", role: .destructive) {
-                        // just to show the alert.
-                        isShowingDeleteAlert = true
+                        if plantToUpdate != nil {
+                            Button("Delete Reminder", role: .destructive) {
+                                isShowingDeleteAlert = true
+                            }
+                            .font(.headline.weight(.semibold))
+                            .padding(.horizontal, 50)
+                            .padding(.vertical, 15)
+                            .background(Color(white: 0.15))
+                            .cornerRadius(20)
+                        }
                     }
-                    .padding()
-                }
-            }
-            .navigationTitle("Set Reminder")
-            .navigationBarTitleDisplayMode(.inline)
+                    .padding(10)
+                    .navigationTitle(plantToUpdate == nil ? "Set Reminder" : "Edit Reminder")
+                    .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") { dismiss() }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
-                        savePlant()
-                        dismiss()
-                    }
-                    .disabled(name.isEmpty)
-                }
-            }
+                      ToolbarItem(placement: .navigationBarLeading) {
+                          Button {
+                              dismiss()
+                          } label: {
+                              Image(systemName: "xmark")
+                                  .font(.body)
+                                  .foregroundColor(.white)
+                          }
+                      }
+                      ToolbarItem(placement: .navigationBarTrailing) {
+                          Button {
+                              savePlant()
+                              dismiss()
+                          } label: {
+                              Image(systemName: "checkmark")
+                                  .font(.body)
+                                  .foregroundColor(.white)
+                          }
+                          .disabled(name.isEmpty)
+                      }
+                  }
             
             // 'plant' is a temporary var for the data in presenting parameter - to send id & customize msg
             .alert("Delete Plant?", isPresented: $isShowingDeleteAlert, presenting: plantToUpdate) { plant in
@@ -75,7 +89,7 @@ struct PlantEditorView: View {
         }
     }
 
-    // for both add and update logics.
+    // only to decide if we should call add or update.
     private func savePlant() {
         if let plantToUpdate = plantToUpdate {
             let updatedPlant = Plant(id: plantToUpdate.id, name: name, room: selectedRoom, light: selectedLight, watering_days: selectedWatering, water_amount: selectedAmount)

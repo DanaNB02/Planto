@@ -5,7 +5,8 @@ import SwiftUI
 struct PlantoApp: App {
     var body: some Scene {
         WindowGroup {
-            PlantListView().preferredColorScheme(.dark)
+            PlantListView().preferredColorScheme(.dark).ignoresSafeArea(.all)
+
         }
     }
 }

@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct PlantFormView: View {
@@ -16,24 +15,43 @@ struct PlantFormView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Plant Details")) {
-                TextField("Plant Name (e.g., Monstera)", text: $name)
+            Section {
+                TextField("e.g., Pothos", text: $name) {
+                    Text("Plant Name")
+                }
             }
             
-            Section(header: Text("Care Details")) {
-                Picker("Room", selection: $selectedRoom) {
+            Section {
+                Picker(selection: $selectedRoom) {
                     ForEach(roomOptions, id: \.self) { Text($0) }
+                } label: {
+                    Label("Room", systemImage: "paperplane")
+                        .foregroundColor(.white)
                 }
-                Picker("Light", selection: $selectedLight) {
+                Picker(selection: $selectedLight) {
                     ForEach(lightOptions, id: \.self) { Text($0) }
+                } label: {
+                    Label("Light", systemImage: "sun.max")
+                        .foregroundColor(.white)
                 }
-                Picker("Watering Days", selection: $selectedWatering) {
+            }
+            
+            Section {
+                Picker(selection: $selectedWatering) {
                     ForEach(wateringOptions, id: \.self) { Text($0) }
+                } label: {
+                    Label("Watering Days", systemImage: "drop")
+                        .foregroundColor(.white)
                 }
-                Picker("Water Amount", selection: $selectedAmount) {
+                
+                Picker(selection: $selectedAmount) {
                     ForEach(amountOptions, id: \.self) { Text($0) }
+                } label: {
+                    Label("Water", systemImage: "drop")
+                        .foregroundColor(.white)
                 }
             }
         }
     }
 }
+

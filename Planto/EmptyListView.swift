@@ -7,35 +7,49 @@ struct EmptyStateView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            Image("planto-logo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
-            
-            Text("Start your plant journey!")
-                .font(.title)
-                .fontWeight(.bold)
-            
-            Text("Now all your plants will be in one place and we will help you take care of them :)🪴")
-                .font(.subheadline)
-                .foregroundColor(.gray)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-            
-            Button(action: {
+            VStack{
+                Image("planto-logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 160, height: 200)
+                    .padding()
+                
+                Text("Start your plant journey!")
+                    .font(.title)
+                    .fontWeight(.bold)
+                
+                Text("Now all your plants will be in one place and we will help you take care of them :)🪴")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 35)
+                    .padding(10)
+            }
+            .padding(.top, -50)
+            .padding(.bottom, 70)
+         
+
+        
+            Button{
                 isShowingAddPlantView = true
-            }) {
+            } label: {
                 Text("Set Plant Reminder")
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(12)
+
             }
-            .padding(.top)
+            .buttonStyle(.glass)
+            .controlSize(.large)
             .padding(.horizontal, 40)
+            .padding(.top) 
+
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
+
+
+#Preview{
+    EmptyStateView(isShowingAddPlantView: Binding<Bool>(get: {false}, set: {_ in })).preferredColorScheme(.dark)
 }
