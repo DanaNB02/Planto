@@ -21,6 +21,10 @@ struct PlantFormView: View {
                 }
             }
             
+//            TextField(text: $name) {
+//                Label("Plant Name", systemImage: "pencil")
+//                    .foregroundColor(.white
+//            }
             Section {
                 Picker(selection: $selectedRoom) {
                     ForEach(roomOptions, id: \.self) { Text($0) }

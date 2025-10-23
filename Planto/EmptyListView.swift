@@ -28,26 +28,23 @@ struct EmptyStateView: View {
             .padding(.top, -50)
             .padding(.bottom, 70)
          
-
-        
-            Button{
-                isShowingAddPlantView = true
-            } label: {
-                Text("Set Plant Reminder")
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity)
-
+            GlassEffectContainer{
+                Button ("Set Plant Reminder"){
+                    isShowingAddPlantView = true
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, 70)
+                .padding(.vertical, 10)
             }
-            .buttonStyle(.glass)
-            .controlSize(.large)
-            .padding(.horizontal, 40)
-            .padding(.top) 
-
-            
+            .glassEffect(.regular.tint(Color.customeGreen.opacity(0.7)).interactive())
+        
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
+
+
+  
 
 
 #Preview{

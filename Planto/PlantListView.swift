@@ -59,9 +59,9 @@ struct PlantListView: View {
                                 ProgressView(value: viewModel.progressValue)
                                     .tint(Color.customeGreen)
                                     .scaleEffect(x: 1, y: 2, anchor: .center)
-                                    .padding(.horizontal, 5)
+                                    .padding(.horizontal, 15)
                             }
-                            .padding()
+                            .padding(.bottom, 30)
 
                             List {
                                 ForEach(viewModel.sortedPlants) { plant in
@@ -91,20 +91,22 @@ struct PlantListView: View {
                         }
                     }
                     
-                    Button {
-                        isShowingAddPlantView = true
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.title3)
-                            .foregroundColor(.white)
-                            .padding(.vertical, 15)
-                            .padding(.horizontal, 10)
                     
+                    GlassEffectContainer{
+                        Button {
+                            isShowingAddPlantView = true
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                        
+                        }
+                        .padding(.horizontal, 15)
+                        .padding(.vertical,15)
+
                     }
-                    .buttonStyle(.glass)
-                    .controlSize(.regular)
-                    .padding(.horizontal, 25)
-                    .padding(.vertical, 20)
+                    .glassEffect(.regular.tint(Color.customeGreen.opacity(0.7)).interactive())
+                    .padding(20)
                     
                 }
                 

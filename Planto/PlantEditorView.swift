@@ -38,17 +38,23 @@ struct PlantEditorView: View {
                         )
 
                         if plantToUpdate != nil {
-                            Button("Delete Reminder", role: .destructive) {
-                                isShowingDeleteAlert = true
+                            GlassEffectContainer{
+                                Button("Delete Reminder", role: .destructive) {
+                                    isShowingDeleteAlert = true
+                                }
+                                .font(.headline.weight(.semibold))
+                                .padding(.horizontal, 100)
+                                .padding(.vertical, 12)
+                                .background(Color(white: 0.15))
+                                .cornerRadius(50)
+                             
                             }
-                            .font(.headline.weight(.semibold))
-                            .padding(.horizontal, 50)
-                            .padding(.vertical, 15)
-                            .background(Color(white: 0.15))
-                            .cornerRadius(20)
+                            .glassEffect()
+                            .padding(.bottom, 230)
+                            
                         }
                     }
-                    .padding(10)
+                    .padding(.horizontal, 10)
                     .navigationTitle(plantToUpdate == nil ? "Set Reminder" : "Edit Reminder")
                     .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -70,6 +76,9 @@ struct PlantEditorView: View {
                                   .font(.body)
                                   .foregroundColor(.white)
                           }
+                          .buttonStyle(.borderedProminent)
+                          .tint(Color.customeGreen.opacity(0.7))
+
                           .disabled(name.isEmpty)
                       }
                   }
@@ -98,4 +107,17 @@ struct PlantEditorView: View {
             viewModel.addPlant(name: name, room: selectedRoom, light: selectedLight, wateringDays: selectedWatering, waterAmount: selectedAmount)
         }
     }
+}
+
+
+#Preview("Create Reminder") {
+    let vm = PlantViewModel()
+    return PlantEditorView(viewModel: vm, plantToUpdate: nil)
+}
+
+#Preview("Edit Reminder") {
+    let vm = PlantViewModel()
+    let samplePlant = Plant(name: "Monstera", room: "Living Room", light: "Partial Sun", watering_days: "Every 7 days", water_amount: "200-300 ml")
+    vm.plants = [samplePlant]
+    return PlantEditorView(viewModel: vm, plantToUpdate: samplePlant)
 }
