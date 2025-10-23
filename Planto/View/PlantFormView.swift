@@ -16,15 +16,14 @@ struct PlantFormView: View {
     var body: some View {
         Form {
             Section {
-                TextField("e.g., Pothos", text: $name) {
+                HStack(spacing: 10){
                     Text("Plant Name")
+                    TextField("Pothos", text: $name) {
+                    }
                 }
+              
             }
             
-//            TextField(text: $name) {
-//                Label("Plant Name", systemImage: "pencil")
-//                    .foregroundColor(.white
-//            }
             Section {
                 Picker(selection: $selectedRoom) {
                     ForEach(roomOptions, id: \.self) { Text($0) }
